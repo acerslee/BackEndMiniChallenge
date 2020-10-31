@@ -1,10 +1,10 @@
+-- Drop a database with a specified name permanently. All physical files associated with the database will be deleted.
+DROP DATABASE IF EXISTS pets_info;
+
 CREATE DATABASE IF NOT EXISTS pets_info;
 
 -- Use a database or change the current database to another database that you are working with:
 USE pets_info;
-
--- Drop a database with a specified name permanently. All physical files associated with the database will be deleted.
-DROP DATABASE IF EXISTS pets_info;
 
 CREATE TABLE IF NOT EXISTS pets (
   id integer AUTO_INCREMENT UNIQUE PRIMARY KEY,
