@@ -31,7 +31,3 @@ const getPetData = (cb) => {
 // write a query to create a new pet row
 
 // write a query to get a pet by name
-
-module.exports = {
-  getPetData,
-};
