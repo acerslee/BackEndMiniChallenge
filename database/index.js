@@ -39,10 +39,25 @@ const getPetById = (id, cb) => {
   });
 };
 
-// write a query to create a new pet row
+// write a query to create a new pet
+const addPet = (petInfo, cb) => {
+  connection.query(
+    `INSERT INTO pets (name, type, age) VALUES (?, ?, ?)`,
+    [petInfo.name, petInfo.type, petInfo.age],
+    (err, results) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, results);
+      }
+    }
+  );
+};
 
+// don't forget to export your methods!
 module.exports = {
   connection,
   getPetData,
   getPetById,
+  addPet,
 };

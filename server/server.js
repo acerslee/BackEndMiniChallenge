@@ -5,7 +5,7 @@ const port = 3001;
 // express.json() is builtin express method to recognize the incoming Request Object as a JSON Object. This method is called as a middleware using the following code:
 app.use(express.json());
 
-// By requiring our database/index.js file, we get access to methods and our db connection from the exports object
+// by requiring our database/index.js file, we get access to methods and our db connection from the exports object
 const db = require("../database/index");
 
 app.get("/", (req, res) => {
@@ -37,6 +37,16 @@ app.get("/api/pets/:id", (req, res) => {
 });
 
 // create a server route to create a new pet
+app.post("/api/pets", (req, res) => {
+  db.addPet(req.body, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+      console.log(`Error adding new pet: ${err}`);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
