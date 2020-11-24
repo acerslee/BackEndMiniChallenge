@@ -28,6 +28,21 @@ const getPetData = (cb) => {
   });
 };
 
+// write a query to get a pet by id
+const getPetById = (id, cb) => {
+  connection.query(`SELECT * FROM pets WHERE id = ?`, [id], (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+
 // write a query to create a new pet row
 
-// write a query to get a pet by name
+module.exports = {
+  connection,
+  getPetData,
+  getPetById,
+};
