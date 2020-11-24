@@ -60,6 +60,20 @@ app.put("/api/pets/:id", (req, res) => {
   });
 });
 
+// create a server route to delete a pet by id
+app.delete("/api/pets/:id", (req, res) => {
+  db.deletePetById(req.params.id, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+      console.log(err);
+      // console.log(`Error deleting pet by id: ${err}`);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
+// binds and listens to the connection son the specified host and port
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });

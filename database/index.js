@@ -69,6 +69,17 @@ const updatePetById = (updateData, id, cb) => {
   );
 };
 
+// write a query to delete a pet by id
+const deletePetById = (id, cb) => {
+  connection.query(`DELETE FROM pets WHERE id = ?`, [id], (err, results) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, results);
+    }
+  });
+};
+
 // don't forget to export your methods!
 module.exports = {
   connection,
@@ -76,4 +87,5 @@ module.exports = {
   getPetById,
   addPet,
   updatePetById,
+  deletePetById,
 };
