@@ -54,10 +54,26 @@ const addPet = (petInfo, cb) => {
   );
 };
 
+// write a query to update a pet's name, type and age based on an id
+const updatePetById = (updateData, id, cb) => {
+  connection.query(
+    `UPDATE pets SET name=?, type=?, age=? WHERE id = ?`,
+    [updateData.name, updateData.type, updateData.age, id],
+    (err, results) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, results);
+      }
+    }
+  );
+};
+
 // don't forget to export your methods!
 module.exports = {
   connection,
   getPetData,
   getPetById,
   addPet,
+  updatePetById,
 };

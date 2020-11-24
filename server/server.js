@@ -48,6 +48,18 @@ app.post("/api/pets", (req, res) => {
   });
 });
 
+// create a server route to update a pet's name, type and age based on an id
+app.put("/api/pets/:id", (req, res) => {
+  db.updatePetById(req.body, req.params.id, (err, data) => {
+    if (err) {
+      res.status(400).send(err);
+      console.log(`Error updating pet by id: ${err}`);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
