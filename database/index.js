@@ -69,6 +69,21 @@ const updatePetById = (updateData, id, cb) => {
   );
 };
 
+// write a query to update only the pet's age by id
+const updatePetAgeById = (petAge, id, cb) => {
+  connection.query(
+    `UPDATE pets SET age=? WHERE id = ?`,
+    [petAge.age, id],
+    (err, results) => {
+      if (err) {
+        cb(err, null);
+      } else {
+        cb(null, results);
+      }
+    }
+  );
+};
+
 // write a query to delete a pet by id
 const deletePetById = (id, cb) => {
   connection.query(`DELETE FROM pets WHERE id = ?`, [id], (err, results) => {
@@ -80,12 +95,13 @@ const deletePetById = (id, cb) => {
   });
 };
 
-// don't forget to export your methods!
+// don't forget to export your connection and methods!
 module.exports = {
   connection,
   getPetData,
   getPetById,
   addPet,
   updatePetById,
+  updatePetAgeById,
   deletePetById,
 };

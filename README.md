@@ -1,6 +1,6 @@
 # BackEndMiniChallenge
 
-Use this repo to pracite writing RESTful routes. Simulate client interactions using Postman <a href="https://www.postman.com/downloads/">Postman</a>. The goal is make all of tests pass.
+Use this repo to pracite writing RESTful routes. Simulate client interactions using Postman <a href="https://www.postman.com/downloads/">Postman</a>. The goal is make all of tests pass and practice <a href="http://expressjs.com/en/guide/error-handling.html">error handling</a> in an express server.
 
 ### Installation
 

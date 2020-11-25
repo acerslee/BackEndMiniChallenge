@@ -16,10 +16,10 @@ app.get("/", (req, res) => {
 app.get("/api/pets", (req, res) => {
   db.getPetData((err, data) => {
     if (err) {
-      res.status(400).send(err);
-      console.log(`Error getting pet data: ${err}`);
+      let err = new Error(`Error getting pet data`);
+      next(err);
     } else {
-      res.status(200).send(data);
+      res.status(200).send({ data: data, message: `Success getting all pets` });
     }
   });
 });
@@ -28,10 +28,12 @@ app.get("/api/pets", (req, res) => {
 app.get("/api/pets/:id", (req, res) => {
   db.getPetById(req.params.id, (err, data) => {
     if (err) {
-      res.status(400).send(err);
-      console.log(`Error getting pet by id: ${err}`);
+      let err = new Error(`Error getting pet by id: ${req.params.id}`);
+      next(err);
     } else {
-      res.status(200).send(data);
+      res
+        .status(200)
+        .send({ data: data, message: `Success getting pet by id` });
     }
   });
 });
@@ -40,10 +42,12 @@ app.get("/api/pets/:id", (req, res) => {
 app.post("/api/pets", (req, res) => {
   db.addPet(req.body, (err, data) => {
     if (err) {
-      res.status(400).send(err);
-      console.log(`Error adding new pet: ${err}`);
+      let err = new Error(`Error creating new pet: ${req.body.name}`);
+      next(err);
     } else {
-      res.status(200).send(data);
+      res
+        .status(200)
+        .send({ message: `Succesfully created new pet: ${req.body.name}` });
     }
   });
 });
@@ -52,10 +56,26 @@ app.post("/api/pets", (req, res) => {
 app.put("/api/pets/:id", (req, res) => {
   db.updatePetById(req.body, req.params.id, (err, data) => {
     if (err) {
-      res.status(400).send(err);
-      console.log(`Error updating pet by id: ${err}`);
+      let err = new Error(`Error updating pet by id: ${req.params.id}`);
+      next(err);
     } else {
-      res.status(200).send(data);
+      res.status(200).send({
+        message: `Successfully updated pet with id: ${req.params.id}`,
+      });
+    }
+  });
+});
+
+// create a server route to update only a pet's age based on the id (Use PATCH)
+app.patch("/api/pets/:id", (req, res) => {
+  db.updatePetAgeById(req.body, req.params.id, (err, data) => {
+    if (err) {
+      let err = new Error(`Error updating pet's age by id: ${req.params.id}`);
+      next(err);
+    } else {
+      res.status(200).send({
+        message: `Successfully updated pet's age with id: ${req.params.id}`,
+      });
     }
   });
 });
@@ -64,12 +84,23 @@ app.put("/api/pets/:id", (req, res) => {
 app.delete("/api/pets/:id", (req, res) => {
   db.deletePetById(req.params.id, (err, data) => {
     if (err) {
-      res.status(400).send(err);
-      console.log(err);
-      // console.log(`Error deleting pet by id: ${err}`);
+      let err = new Error(`Error deleting pet by id: ${req.params.id}`);
+      next(err);
     } else {
-      res.status(200).send(data);
+      res
+        .status(200)
+        .send({ message: `Successfully deleted pet id: ${req.params.id}` });
     }
+  });
+});
+
+// error handler middleware
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).send({
+    error: {
+      status: error.status || 500,
+      message: error.message || "Internal Server Error",
+    },
   });
 });
 
