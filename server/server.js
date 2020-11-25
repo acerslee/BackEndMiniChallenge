@@ -16,11 +16,9 @@ app.get("/", (req, res) => {
 app.get("/api/pets", (req, res, next) => {
   db.getPetData((err, data) => {
     if (err) {
-      // log the error
       console.error(err);
-      let error = new Error(`Error getting pet data`);
       // next sends the error to the error handler middleware function with a generic message
-      next(error);
+      next(new Error(`Error getting pet data`));
     } else {
       res.status(200).send({ data: data, message: `Success getting all pets` });
     }
@@ -32,8 +30,7 @@ app.get("/api/pets/:id", (req, res, next) => {
   db.getPetById(req.params.id, (err, data) => {
     if (err) {
       console.error(err);
-      let error = new Error(`Error getting pet by id: ${req.params.id}`);
-      next(error);
+      next(new Error(`Error getting pet by id: ${req.params.id}`));
     } else {
       res
         .status(200)
@@ -47,8 +44,7 @@ app.post("/api/pets", (req, res, next) => {
   db.addPet(req.body, (err, data) => {
     if (err) {
       console.err(err);
-      let error = new Error(`Error creating new pet: ${req.body.name}`);
-      next(err);
+      next(new Error(`Error creating new pet: ${req.body.name}`));
     } else {
       res
         .status(200)
@@ -62,8 +58,7 @@ app.put("/api/pets/:id", (req, res) => {
   db.updatePetById(req.body, req.params.id, (err, data) => {
     if (err) {
       console.error(err);
-      let error = new Error(`Error updating pet by id: ${req.params.id}`);
-      next(error);
+      next(new Error(`Error updating pet by id: ${req.params.id}`));
     } else {
       res.status(200).send({
         message: `Successfully updated pet with id: ${req.params.id}`,
@@ -77,8 +72,7 @@ app.patch("/api/pets/:id", (req, res) => {
   db.updatePetAgeById(req.body, req.params.id, (err, data) => {
     if (err) {
       console.error(err);
-      let error = new Error(`Error updating pet's age by id: ${req.params.id}`);
-      next(error);
+      next(new Error(`Error updating pet's age by id: ${req.params.id}`));
     } else {
       res.status(200).send({
         message: `Successfully updated pet's age with id: ${req.params.id}`,
@@ -91,9 +85,7 @@ app.patch("/api/pets/:id", (req, res) => {
 app.delete("/api/pets/:id", (req, res, next) => {
   db.deletePetById(req.params.id, (err, data) => {
     if (err) {
-      console.error(err);
-      let error = new Error(`Error deleting pet by id: ${req.params.id}`);
-      next(error);
+      next(new Error(`Error deleting pet by id: ${req.params.id}`));
     } else {
       res
         .status(200)
