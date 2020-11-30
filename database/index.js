@@ -12,10 +12,10 @@ var connection = mysql.createConnection({
 connection.connect();
 
 // test connection
-connection.query("SELECT 1 + 1 AS solution", function (err, rows, fields) {
-  if (err) throw err;
-  console.log("The solution is: ", rows[0].solution);
-});
+// connection.query("SELECT 1 + 1 AS solution", function (err, rows, fields) {
+//   if (err) throw err;
+//   console.log("The solution is: ", rows[0].solution);
+// });
 
 // write a query to get all data from pets table
 const getPetData = (cb) => {

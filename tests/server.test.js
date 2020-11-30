@@ -116,21 +116,18 @@ describe("GET /api/pets ", () => {
     });
   });
 
-  // describe("POST /api/pets", () => {
-  //   test("It should add a new pet to the database", async () => {
-  //     const newPet = await supertest(app).post("/api/pets").send({
-  //       name: "Snoopy",
-  //       type: "Dog",
-  //       age: 5,
-  //     });
-  //     // make sure we add it correctly
-  //     expect(newPet.body).toHaveProperty("id");
-  //     expect(newPet.body.name).toBe("Snoopy");
-  //     expect(newStudent.statusCode).toBe(200);
+  describe("POST /api/pets", () => {
+    test("It should add a new pet to the database", async () => {
+      const newPet = await supertest(app).post("/api/pets").send({
+        name: "Snoopy",
+        type: "Dog",
+        age: 5,
+      });
 
-  //     // make sure we have 3 students now
-  //     const response = await request(app).get("/api/pets");
-  //     expect(response.body.length).toBe(16);
-  //   });
-  // });
+      expect(newPet.statusCode).toBe(200);
+
+      const response = await supertest(app).get("/api/pets");
+      expect(response.body.length).toBe(16);
+    });
+  });
 });
