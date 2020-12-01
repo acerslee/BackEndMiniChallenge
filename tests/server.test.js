@@ -6,7 +6,7 @@ const supertest = require("supertest");
 
 beforeAll(async () => {
   await db.connection.query(`CREATE TABLE IF NOT EXISTS pets (
-  id integer AUTO_INCREMENT UNIQUE PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name varchar(50),
   type varchar(50),
   age integer
@@ -17,9 +17,6 @@ beforeEach(async () => {
   await db.connection.query(
     `INSERT INTO pets (name, type, age) VALUES ("Grumpy Cat", "Cat", 10)`
   );
-  await db.connection.query(
-    `INSERT INTO pets (name, type, age) VALUES ("Bark Twain", "Dog", 7)`
-  );
 });
 
 afterEach(async () => {
@@ -27,7 +24,7 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
-  await db.connection.query("DROP TABLE pets");
+  await db.connection.query("DROP TABLE IF EXISTS pets");
   db.connection.end();
 });
 
@@ -41,14 +38,8 @@ describe("GET /api/pets ", () => {
         type: "Cat",
         age: 10,
       },
-      {
-        id: 2,
-        name: "Bark Twain",
-        type: "Dog",
-        age: 7,
-      },
     ]);
-    expect(response.body.length).toEqual(2);
+    expect(response.body.length).toEqual(1);
     expect(response.statusCode).toBe(200);
   });
 });
@@ -82,7 +73,7 @@ describe("POST /api/pets", () => {
       .get("/api/pets")
       .expect(200)
       .then((response) => {
-        expect(response.body.length).toBe(3);
+        expect(response.body.length).toBe(2);
       });
   });
 });
@@ -102,17 +93,37 @@ describe("PUT /api/pets/:id", () => {
     };
 
     await supertest(app)
-      .put("/api/pets/" + 3)
+      .put("/api/pets/" + 7)
       .send(updateNewPet)
       .expect(200)
-      .then(async (response) => {
-        const updatedPet = await db.connection.query(
-          `SELECT * FROM pets WHERE id = 3`
-        );
-        expect(updatedPet).toBeTruthy();
-        expect(updatedPet.name).toBe(updatedPet.name);
-        expect(updatedPet.type).toBe(updatedPet.type);
-        expect(updatedPet.age).toBe(updatedPet.age);
+      .then(async () => {
+        const response = await supertest(app).get("/api/pets/" + 7);
+        expect(response.body[0].name).toBe("Cindy Clawford");
+        expect(response.body[0].type).toBe("Cat");
+        expect(response.body[0].age).toBe(2);
+      });
+  });
+});
+
+describe("PATCH /api/pets/:id", () => {
+  test("It should update a pet by id", async () => {
+    const newPet = await supertest(app).post("/api/pets").send({
+      name: "Napoleon Bunnyparte",
+      type: "Bunny",
+      age: 1,
+    });
+
+    const newAge = {
+      age: 4,
+    };
+
+    await supertest(app)
+      .patch("/api/pets/" + 9)
+      .send(newAge)
+      .expect(200)
+      .then(async () => {
+        const response = await supertest(app).get("/api/pets/" + 9);
+        expect(response.body[0].age).toBe(4);
       });
   });
 });
