@@ -8,8 +8,8 @@ USE pets_info;
 
 CREATE TABLE IF NOT EXISTS pets (
   id integer AUTO_INCREMENT UNIQUE PRIMARY KEY,
-  name varchar(255),
-  type varchar(255),
+  name varchar(50),
+  type varchar(50),
   age integer
 );
 
