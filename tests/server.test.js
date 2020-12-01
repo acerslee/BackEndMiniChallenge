@@ -39,6 +39,7 @@ describe("GET /api/pets ", () => {
         age: 10,
       },
     ]);
+
     expect(response.body.length).toEqual(1);
     expect(response.statusCode).toBe(200);
   });
@@ -51,6 +52,7 @@ describe("GET /api/pets/:id ", () => {
       type: "Dog",
       age: 4,
     });
+
     await supertest(app)
       .get("/api/pets/" + 3)
       .expect(200)
@@ -124,6 +126,24 @@ describe("PATCH /api/pets/:id", () => {
       .then(async () => {
         const response = await supertest(app).get("/api/pets/" + 9);
         expect(response.body[0].age).toBe(4);
+      });
+  });
+});
+
+describe("DELETE /api/pets", () => {
+  test("It should delete a pet by id", async () => {
+    const newPet = await supertest(app).post("/api/pets").send({
+      name: "Bubba Gump",
+      type: "Fish",
+      age: 3,
+    });
+
+    const removedPet = await supertest(app)
+      .delete("/api/pets/" + 11)
+      .expect(200)
+      .then(async () => {
+        const response = await supertest(app).get("/api/pets");
+        expect(response.body[0].age).toBe(10);
       });
   });
 });
