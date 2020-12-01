@@ -50,5 +50,7 @@ $ npm run test
     <td><a href="http://expressjs.com">Express</a></td>
      <td><a href="https://www.mysql.com/">MySQL</a></td>
     <td><a href="https://jestjs.io/">Jest</a></td>
+    <td><a href="https://www.npmjs.com/package/supertest">Supertest</a></td>
+
   </tr>
 </table>
