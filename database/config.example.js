@@ -1,2 +1,2 @@
-// after adding your password, save this file and rename it as config.js so it is gitignored
+// TODO: input your mySQL password, rename this file as config.js (so it is gitignored) and save
 module.exports = "YOUR MYSQL PASSWORD HERE";
