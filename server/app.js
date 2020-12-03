@@ -7,10 +7,6 @@ app.use(express.json());
 // by requiring our database/index.js file, we get access to methods and our db connection from the exports object
 const db = require("../database/index");
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 // create a server route to get all the pet data
 app.get("/api/pets", (req, res, next) => {
   db.getPetData((err, data) => {
