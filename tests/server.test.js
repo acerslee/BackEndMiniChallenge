@@ -30,18 +30,19 @@ afterAll(async () => {
 
 describe("GET /api/pets ", () => {
   test("It should respond with an array of all pets", async () => {
-    const response = await supertest(app).get("/api/pets");
-    expect(response.body).toEqual([
-      {
-        id: 1,
-        name: "Grumpy Cat",
-        type: "Cat",
-        age: 10,
-      },
-    ]);
-
-    expect(response.body.length).toEqual(1);
-    expect(response.statusCode).toBe(200);
+    await supertest(app)
+      .get("/api/pets")
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toEqual([
+          {
+            id: 1,
+            name: "Grumpy Cat",
+            type: "Cat",
+            age: 10,
+          },
+        ]);
+      });
   });
 });
 
@@ -65,7 +66,7 @@ describe("GET /api/pets/:id ", () => {
 
 describe("POST /api/pets", () => {
   test("It should add a new pet to the database", async () => {
-    const newPet = await supertest(app).post("/api/pets").send({
+    await supertest(app).post("/api/pets").send({
       name: "Mary Puppins",
       type: "Dog",
       age: 5,
@@ -82,7 +83,7 @@ describe("POST /api/pets", () => {
 
 describe("PUT /api/pets/:id", () => {
   test("It should update a pet by id", async () => {
-    const newPet = await supertest(app).post("/api/pets").send({
+    await supertest(app).post("/api/pets").send({
       name: "Cindy Pawford",
       type: "Kitten",
       age: 1,
@@ -109,7 +110,7 @@ describe("PUT /api/pets/:id", () => {
 
 describe("PATCH /api/pets/:id", () => {
   test("It should update a pet by id", async () => {
-    const newPet = await supertest(app).post("/api/pets").send({
+    await supertest(app).post("/api/pets").send({
       name: "Napoleon Bunnyparte",
       type: "Bunny",
       age: 1,
@@ -132,13 +133,13 @@ describe("PATCH /api/pets/:id", () => {
 
 describe("DELETE /api/pets", () => {
   test("It should delete a pet by id", async () => {
-    const newPet = await supertest(app).post("/api/pets").send({
+    await supertest(app).post("/api/pets").send({
       name: "Bubba Gump",
       type: "Fish",
       age: 3,
     });
 
-    const removedPet = await supertest(app)
+    await supertest(app)
       .delete("/api/pets/" + 11)
       .expect(200)
       .then(async () => {
