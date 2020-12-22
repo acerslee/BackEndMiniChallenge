@@ -45,7 +45,7 @@ $ npm run test
 
 ### Requirements
 
-In order to make the tests pass in this exercise, you'll need to complete both the server route (server/index.js) and the database helper function (databse/index.js).
+In order to make the tests pass in this exercise, you'll need to complete both the server routes (server/index.js) and the database helper functions (databse/index.js).
 
 | METHOD | PATH          | DESCRIPTION                                            |
 | ------ | ------------- | ------------------------------------------------------ |
