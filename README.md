@@ -1,6 +1,6 @@
 # BackEndMiniChallenge
 
-Use this repo to practice writing RESTful CRUD routes. Simulate client interactions using Postman <a href="https://www.postman.com/downloads/">Postman</a>. The goal of this mini challenge is to make all tests pass and practice <a href="http://expressjs.com/en/guide/error-handling.html">error handling</a> in an express server. See requirements section below for challenge details.
+Use this repo to practice writing RESTful CRUD routes. Manually test the routes using Postman <a href="https://www.postman.com/downloads/">Postman</a> or <a href="https://curl.se/">curl</a>. The goal of this mini challenge is to make all tests pass and practice <a href="http://expressjs.com/en/guide/error-handling.html">error handling</a> in an express server. See requirements section below for challenge details.
 
 ### Installation
 
