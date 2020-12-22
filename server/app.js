@@ -15,8 +15,7 @@ app.get("/api/pets", (req, res, next) => {
   db.getPetData((err, data) => {
     if (err) {
       console.error(err);
-      // next sends the error to the error handler middleware function with a generic message
-      next(new Error(`Error getting pet data`));
+      res.status(500).send(`Failed to get pet data`);
     } else {
       res.status(200).send(data);
     }
@@ -28,7 +27,7 @@ app.get("/api/pets/:id", (req, res, next) => {
   db.getPetById(req.params.id, (err, data) => {
     if (err) {
       console.error(err);
-      next(new Error(`Error getting pet by id: ${req.params.id}`));
+      res.status(500).send(`Failed to get pet by id: ${req.params.id}`);
     } else {
       res.status(200).send(data);
     }
@@ -40,11 +39,9 @@ app.post("/api/pets", (req, res, next) => {
   db.addPet(req.body, (err, data) => {
     if (err) {
       console.err(err);
-      next(new Error(`Error creating new pet: ${req.body.name}`));
+      res.status(500).send(`Error creating new pet: ${req.body.name}`);
     } else {
-      res
-        .status(200)
-        .send({ message: `Succesfully created new pet: ${req.body.name}` });
+      res.status(200).send(`Succesfully created new pet: ${req.body.name}`);
     }
   });
 });
@@ -54,7 +51,7 @@ app.put("/api/pets/:id", (req, res) => {
   db.updatePetById(req.body, req.params.id, (err, data) => {
     if (err) {
       console.error(err);
-      next(new Error(`Error updating pet by id: ${req.params.id}`));
+      res.status(500).send(`Error updating pet by id: ${req.params.id}`);
     } else {
       res.status(200).send(data);
     }
@@ -66,11 +63,11 @@ app.patch("/api/pets/:id", (req, res) => {
   db.updatePetAgeById(req.body, req.params.id, (err, data) => {
     if (err) {
       console.error(err);
-      next(new Error(`Error updating pet's age by id: ${req.params.id}`));
+      res.status(500).send(`Error updating pet's age by id: ${req.params.id}`);
     } else {
-      res.status(200).send({
-        message: `Successfully updated pet's age with id: ${req.params.id}`,
-      });
+      res
+        .status(200)
+        .send(`Successfully updated pet's age with id: ${req.params.id}`);
     }
   });
 });
@@ -81,20 +78,8 @@ app.delete("/api/pets/:id", (req, res, next) => {
     if (err) {
       next(new Error(`Error deleting pet by id: ${req.params.id}`));
     } else {
-      res
-        .status(200)
-        .send({ message: `Successfully deleted pet id: ${req.params.id}` });
+      res.status(200).send(`Successfully deleted pet id: ${req.params.id}`);
     }
-  });
-});
-
-// error handler middleware
-app.use((error, req, res, next) => {
-  res.status(error.status || 500).send({
-    error: {
-      status: error.status || 500,
-      message: error.message || "Internal Server Error",
-    },
   });
 });
 
