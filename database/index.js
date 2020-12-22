@@ -13,22 +13,22 @@ var connection = mysql.createConnection({
 connection.connect();
 
 // TODO: write a query to get all data from pets table
-const getPetData;
+const getPetData = () => {};
 
 // TODO: write a query to get a pet by id
-// const getPetById;
+const getPetById = () => {};
 
 // TODO: write a query to create a new pet
-// const addPet;
+const addPet = () => {};
 
 // TODO: write a query to update a pet's name, type and age based on an id
-// const updatePetById;
+const updatePetById = () => {};
 
 // TODO: write a query to update only the pet's age by id
-// const updatePetAgeById;
+const updatePetAgeById = () => {};
 
 // TODO: write a query to delete a pet by id
-// const deletePetById;
+const deletePetById = () => {};
 
 // don't forget to export your methods!
 module.exports = {
