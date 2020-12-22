@@ -1,8 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 // express.json() is builtin express method to recognize the incoming Request Object as a JSON Object. This method is called as a middleware using the following code:
 app.use(express.json());
+// CORS is a node.js package for providing an express middleware that can be used to enable CORS with various options
+app.use(cors());
 
 // by requiring our database/index.js file, we get access to methods and our db connection from the exports object
 const db = require("../database/index");
