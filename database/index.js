@@ -97,6 +97,7 @@ const deletePetById = (id, cb) => {
 };
 
 // don't forget to export your connection and methods!
+// NOTE: the connection is being exported for testing purposes only and has nothing to do with the functionality of the application
 module.exports = {
   connection,
   getPetData,
