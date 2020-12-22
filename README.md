@@ -1,6 +1,6 @@
 # BackEndMiniChallenge
 
-Use this repo to pracite writing RESTful CRUD routes. Simulate client interactions using Postman <a href="https://www.postman.com/downloads/">Postman</a>. The goal of this mini challenge is to make all tests pass and practice <a href="http://expressjs.com/en/guide/error-handling.html">error handling</a> in an express server. See requirements section below for challenge details.
+Use this repo to practice writing RESTful CRUD routes. Simulate client interactions using Postman <a href="https://www.postman.com/downloads/">Postman</a>. The goal of this mini challenge is to make all tests pass and practice <a href="http://expressjs.com/en/guide/error-handling.html">error handling</a> in an express server. See requirements section below for challenge details.
 
 ### Installation
 
@@ -21,7 +21,7 @@ $ npm install
 In a new terminal, seed the database
 
 ```sh
-$ mysql -u root -p < schema.sql
+$ mysql -u root -p < schema.sql;
 ```
 
 Start the server
@@ -33,8 +33,8 @@ $ npm run start
 Before running the tests, create and use the test database
 
 ```sh
-$ CREATE DATABASE pets_info_test
-$ USE pets_info_test
+$ CREATE DATABASE pets_info_test;
+$ USE pets_info_test;
 ```
 
 Run the tests
@@ -44,6 +44,8 @@ $ npm run test
 ```
 
 ### Requirements
+
+In order to make the tests pass in this exercise, you'll need to complete both the server route (server/index.js) and the database helper function (databse/index.js).
 
 | METHOD | PATH          | DESCRIPTION                                            |
 | ------ | ------------- | ------------------------------------------------------ |
