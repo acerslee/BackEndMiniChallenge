@@ -85,5 +85,3 @@ app.delete("/api/pets/:id", (req, res) => {
 });
 
 module.exports = app;
-
-// what are express.json() and express.urlencoded()? : https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded/51844327#:~:text=a.-,express.,use(express.
