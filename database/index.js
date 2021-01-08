@@ -41,7 +41,7 @@ const getPetById = (id, cb) => {
 };
 
 // write a query to create a new pet
-const addPet = (petInfo, cb) => {
+const addPet = ({ petInfo }, cb) => {
   connection.query(
     `INSERT INTO pets (name, type, age) VALUES (?, ?, ?)`,
     [petInfo.name, petInfo.type, petInfo.age],
@@ -97,6 +97,7 @@ const deletePetById = (id, cb) => {
 };
 
 // don't forget to export your connection and methods!
+
 // NOTE: the connection is being exported for testing purposes only and has nothing to do with the functionality of the application
 module.exports = {
   connection,

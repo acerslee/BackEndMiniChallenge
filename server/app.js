@@ -11,7 +11,7 @@ app.use(cors());
 const db = require("../database/index");
 
 // create a server route to get all the pet data
-app.get("/api/pets", (req, res, next) => {
+app.get("/api/pets", (req, res) => {
   db.getPetData((err, data) => {
     if (err) {
       console.error(err);
@@ -23,7 +23,7 @@ app.get("/api/pets", (req, res, next) => {
 });
 
 // create a server route to get a pet by id
-app.get("/api/pets/:id", (req, res, next) => {
+app.get("/api/pets/:id", (req, res) => {
   db.getPetById(req.params.id, (err, data) => {
     if (err) {
       console.error(err);
@@ -35,7 +35,7 @@ app.get("/api/pets/:id", (req, res, next) => {
 });
 
 // create a server route to create a new pet
-app.post("/api/pets", (req, res, next) => {
+app.post("/api/pets", (req, res) => {
   db.addPet(req.body, (err, data) => {
     if (err) {
       console.err(err);
@@ -73,10 +73,11 @@ app.patch("/api/pets/:id", (req, res) => {
 });
 
 // create a server route to delete a pet by id
-app.delete("/api/pets/:id", (req, res, next) => {
+app.delete("/api/pets/:id", (req, res) => {
   db.deletePetById(req.params.id, (err, data) => {
     if (err) {
-      next(new Error(`Error deleting pet by id: ${req.params.id}`));
+      console.error(err);
+      res.status(500).send(`Error deleting pet by id: ${req.params.id}`);
     } else {
       res.status(200).send(`Successfully deleted pet id: ${req.params.id}`);
     }
