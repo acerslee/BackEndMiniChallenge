@@ -1,9 +1,9 @@
+const mysql = require("mysql");
 // connect to MySQL database
 const mySQLpassword = require("./config");
 const db = process.env.NODE_ENV === "test" ? "pets_info_test" : "pets_info";
 
-var mysql = require("mysql");
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: mySQLpassword,
